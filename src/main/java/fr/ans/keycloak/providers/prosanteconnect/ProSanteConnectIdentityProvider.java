@@ -375,6 +375,14 @@ final class ProSanteConnectIdentityProvider extends OIDCIdentityProvider
 			processAccessTokenResponse(identity, tokenResponse);
 		}
 
+		if (identity.getEmail() != null && !identity.getEmail().isEmpty()) {
+			logger.info("email: " + identity.getEmail());
+		} else {
+			var fakemail = preferredUsername.replaceAll("[^a-zA-Z0-9.]", "") + "@sodoc.fr";
+			identity.setEmail(fakemail);
+			logger.info("email: " + fakemail);
+		}
+
 		return identity;
 	}
 
